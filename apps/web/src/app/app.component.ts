@@ -8,15 +8,10 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'web';
-  helloMsg = 'Loading...';
 
-  ngOnInit(): void {
-    fetch('http://localhost:3000/')
-      .then((response) => response.json())
-      .then((data) => {
-        this.helloMsg = data.message;
-      });
-  }
+  registerTodo() {}
+
+  loadTodos() {}
 }
