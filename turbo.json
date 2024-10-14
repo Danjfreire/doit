@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
+  "globalEnv": ["POSTGRES_PASSWORD", "POSTGRES_PORT"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
