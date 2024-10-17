@@ -1,12 +1,23 @@
 <div class="flex items-center justify-center p-8">
   <!-- Board container -->
-  <div class="w-[260px]">
+  <div class="flex h-max w-[260px] flex-col">
     <!-- Crete TODO button -->
     <div
       role="button"
-      class="min-h-10 w-full rounded-xl border border-r border-slate-300 px-4 py-3 text-sm"
+      class="mb-2 min-h-10 w-full rounded-xl border border-r border-slate-300 px-4 py-3 text-sm hover:bg-slate-100"
+      (click)="createTodo()"
     >
       New Todo
     </div>
+
+    <!-- TODOs list -->
+    @for (item of todos; track $index) {
+      <div
+        role="button"
+        class="mb-2 min-h-10 w-full rounded-xl border border-r border-slate-300 px-4 py-3 text-sm hover:bg-slate-100"
+      >
+        {{ item.id }} - {{ item.description }}
+      </div>
+    }
   </div>
 </div>
