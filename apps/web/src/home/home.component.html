@@ -5,7 +5,7 @@
     <div
       role="button"
       class="mb-2 min-h-10 w-full rounded-xl border border-r border-slate-300 px-4 py-3 text-sm hover:bg-slate-100"
-      (click)="createTodo()"
+      (click)="addTodo()"
     >
       New Todo
     </div>
@@ -16,7 +16,14 @@
         role="button"
         class="mb-2 min-h-10 w-full rounded-xl border border-r border-slate-300 px-4 py-3 text-sm hover:bg-slate-100"
       >
-        {{ item.id }} - {{ item.description }}
+        <input
+          [id]="item.id"
+          type="text"
+          placeholder="Type some todo task"
+          [(ngModel)]="item.description"
+          (keydown.enter)="saveTodo(item, $event)"
+          class="w-full border-none outline-none"
+        />
       </div>
     }
   </div>

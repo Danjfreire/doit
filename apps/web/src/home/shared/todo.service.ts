@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { Todo } from '../home.component';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +9,10 @@ import { environment } from '../../environments/environment';
 export class TodoService {
   constructor(private http: HttpClient) {}
 
-  createTodo() {
+  createTodo(todo: Todo) {
     return this.http.post<{ id: string; description: string }>(
       `${environment.apiUrl}/todo`,
-      { description: '' },
+      { description: todo.description },
     );
   }
 
