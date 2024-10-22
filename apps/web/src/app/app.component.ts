@@ -1,22 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HeaderComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
-  title = 'web';
-  helloMsg = 'Loading...';
-
-  ngOnInit(): void {
-    fetch('http://localhost:3000/')
-      .then((response) => response.json())
-      .then((data) => {
-        this.helloMsg = data.message;
-      });
-  }
-}
+export class AppComponent {}
