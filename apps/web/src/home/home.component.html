@@ -16,14 +16,17 @@
         role="button"
         class="mb-2 min-h-10 w-full rounded-xl border border-r border-slate-300 px-4 py-3 text-sm hover:bg-slate-100"
       >
-        <input
+        <div
           [id]="item.id"
-          type="text"
+          contenteditable="true"
+          [attr.filled]="item.description !== '' ? 'true' : 'false'"
           placeholder="Type some todo task"
-          [(ngModel)]="item.description"
-          (keydown.enter)="saveTodo(item, $event)"
+          (keydown)="updateDescription(item, $event)"
+          (blur)="saveTodo(item)"
           class="w-full border-none outline-none"
-        />
+        >
+          {{ item.description }}
+        </div>
       </div>
     }
   </div>
