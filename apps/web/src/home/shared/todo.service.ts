@@ -16,6 +16,13 @@ export class TodoService {
     );
   }
 
+  updateTodo(todo: Todo) {
+    return this.http.put<{ id: string; description: string }>(
+      `${environment.apiUrl}/todo/${todo.id}`,
+      { description: todo.description },
+    );
+  }
+
   loadTodos() {
     return this.http.get<{ todos: { id: string; description: string }[] }>(
       `${environment.apiUrl}/todo`,

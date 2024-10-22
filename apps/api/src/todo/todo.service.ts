@@ -22,4 +22,16 @@ export class TodoService {
 
     return res;
   }
+
+  async updateTodo(id: string, dto: CreateTodoDto): Promise<Todo | null> {
+    const todo = await this.todoRepository.findOneBy({ id });
+    if (todo == null) {
+      return null;
+    }
+
+    todo.description = dto.description;
+    await this.todoRepository.save(todo);
+
+    return todo;
+  }
 }

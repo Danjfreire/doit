@@ -11,7 +11,7 @@
     </div>
 
     <!-- TODOs list -->
-    @for (item of todos; track $index) {
+    @for (item of todos; track item.id) {
       <div
         role="button"
         class="mb-2 min-h-10 w-full rounded-xl border border-r border-slate-300 px-4 py-3 text-sm hover:bg-slate-100"
@@ -21,7 +21,8 @@
           contenteditable="true"
           [attr.filled]="item.description !== '' ? 'true' : 'false'"
           placeholder="Type some todo task"
-          (keydown)="updateDescription(item, $event)"
+          (input)="updateDescription(item, $event)"
+          (keydown.enter)="stopEditing($event)"
           (blur)="saveTodo(item)"
           class="w-full border-none outline-none"
         >
