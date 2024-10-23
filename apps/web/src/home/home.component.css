@@ -1,0 +1,4 @@
+[filled="false"]:empty:after {
+  content: attr(placeholder);
+  color: #9e9e9e;
+}
