@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "dev": "docker compose up -d && turbo dev",
+    "dev": "turbo dev",
+    "infra:up": "docker compose up",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

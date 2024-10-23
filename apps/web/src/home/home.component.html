@@ -19,15 +19,14 @@
         <div
           [id]="item.id"
           contenteditable="true"
+          [textContent]="item.description"
           [attr.filled]="item.description !== '' ? 'true' : 'false'"
           placeholder="Type some todo task"
           (input)="updateDescription(item, $event)"
           (keydown.enter)="stopEditing($event)"
           (blur)="saveTodo(item)"
           class="w-full border-none outline-none"
-        >
-          {{ item.description }}
-        </div>
+        ></div>
       </div>
     }
   </div>
