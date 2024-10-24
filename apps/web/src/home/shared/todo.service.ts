@@ -23,6 +23,10 @@ export class TodoService {
     );
   }
 
+  deleteTodo(todo: Todo) {
+    return this.http.delete<void>(`${environment.apiUrl}/todo/${todo.id}`);
+  }
+
   loadTodos() {
     return this.http.get<{ todos: { id: string; description: string }[] }>(
       `${environment.apiUrl}/todo`,

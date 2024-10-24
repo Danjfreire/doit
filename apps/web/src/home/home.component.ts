@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TodoService } from './shared/todo.service';
 import { FormsModule } from '@angular/forms';
+import { LucideAngularModule, Play, Trash2 } from 'lucide-angular';
 
 export interface Todo {
   id: string;
@@ -10,11 +11,15 @@ export interface Todo {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, LucideAngularModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+  // Lucide icons
+  readonly TrashIcon = Trash2;
+  readonly PlayIcon = Play;
+
   todos: Todo[] = [];
 
   todoService = inject(TodoService);
@@ -77,6 +82,14 @@ export class HomeComponent implements OnInit {
         this.printTodos();
       });
     }
+  }
+
+  deleteTodo(todo: Todo) {
+    this.todoService.deleteTodo(todo).subscribe(() => {
+      this.todos = this.todos.filter((t) => t.id !== todo.id);
+      console.log('todo deleted!');
+      this.printTodos();
+    });
   }
 
   private loadTodos() {

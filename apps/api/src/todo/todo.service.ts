@@ -30,8 +30,16 @@ export class TodoService {
     }
 
     todo.description = dto.description;
-    await this.todoRepository.save(todo);
+    return await this.todoRepository.save(todo);
+  }
 
-    return todo;
+  async deleteTodo(id: string): Promise<Todo | null> {
+    const todo = await this.todoRepository.findOneBy({ id });
+
+    if (todo == null) {
+      return null;
+    }
+
+    return await this.todoRepository.remove(todo);
   }
 }
