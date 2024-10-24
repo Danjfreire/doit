@@ -1,48 +1,7 @@
 <div class="flex items-center justify-center p-8">
   <!-- Board container -->
-  <div class="flex h-max w-[360px] flex-col">
-    <!-- Crete TODO button -->
-    <div
-      role="button"
-      class="mb-2 min-h-10 w-full rounded-xl border border-r border-slate-300 px-4 py-3 text-sm hover:bg-slate-100"
-      (click)="addTodo()"
-    >
-      New Todo
-    </div>
-
-    <!-- TODOs list -->
-    @for (item of todos; track item.id) {
-      <div
-        class="mb-2 flex min-h-10 w-full cursor-pointer rounded-xl border border-r border-slate-300 px-4 py-3 text-sm hover:bg-slate-100"
-      >
-        <!-- Todo description -->
-        <div
-          [id]="item.id"
-          contenteditable="true"
-          [textContent]="item.description"
-          [attr.filled]="item.description !== '' ? 'true' : 'false'"
-          placeholder="Type some todo task"
-          (input)="updateDescription(item, $event)"
-          (keydown.enter)="stopEditing($event)"
-          (blur)="saveTodo(item)"
-          class="w-[260px] border-none outline-none"
-        ></div>
-        <!-- Todo actions -->
-        <div class="flex w-[50px] items-center">
-          <!-- <lucide-angular
-            class="mr-2"
-            [img]="PlayIcon"
-            size="18"
-            color="green"
-          ></lucide-angular> -->
-          <lucide-angular
-            [img]="TrashIcon"
-            size="18"
-            color="red"
-            (click)="deleteTodo(item)"
-          ></lucide-angular>
-        </div>
-      </div>
-    }
-  </div>
+  <!-- TODO: add some logic to either show the todo list or the todo being done -->
+  @if (todos) {
+    <app-todo-list [todos]="todos"></app-todo-list>
+  }
 </div>
