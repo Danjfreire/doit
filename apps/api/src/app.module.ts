@@ -2,26 +2,18 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TodoModule } from './todo/todo.module';
-import { Todo } from './todo/todo.entity';
+import typeorm from './config/typeorm';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      load: [typeorm],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (cfg: ConfigService) => ({
-        type: 'postgres',
-        host: cfg.get('POSTGRES_HOST'),
-        port: cfg.get('POSTGRES_PORT'),
-        username: cfg.get('POSTGRES_USER'),
-        password: cfg.get('POSTGRES_PASSWORD'),
-        database: cfg.get('POSTGRES_DB'),
-        entities: [Todo],
-        synchronize: true,
-      }),
+      useFactory: (cfg: ConfigService) => cfg.get('typeorm'),
     }),
     TodoModule,
   ],
