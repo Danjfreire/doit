@@ -7,29 +7,33 @@ import { Todo } from '../home.component';
   providedIn: 'root',
 })
 export class TodoService {
+  private defaultUserId = '822ef514-46b9-46cf-9703-4d42e9f5ee68'; // for testing purposes
   constructor(private http: HttpClient) {}
 
-  createTodo(todo: Todo) {
+  createTodo(todo: Todo, userId: string = this.defaultUserId) {
     return this.http.post<{ id: string; description: string }>(
-      `${environment.apiUrl}/todo`,
+      `${environment.apiUrl}/v1/users/${userId}/todos`,
       { description: todo.description },
     );
   }
 
-  updateTodo(todo: Todo) {
+  updateTodo(todo: Todo, userId: string = this.defaultUserId) {
     return this.http.put<{ id: string; description: string }>(
-      `${environment.apiUrl}/todo/${todo.id}`,
+      `${environment.apiUrl}/v1/users/${userId}/todos/${todo.id}`,
       { description: todo.description },
     );
   }
 
-  deleteTodo(todo: Todo) {
-    return this.http.delete<void>(`${environment.apiUrl}/todo/${todo.id}`);
+  deleteTodo(todo: Todo, userId: string = this.defaultUserId) {
+    return this.http.delete<void>(
+      `${environment.apiUrl}/v1/users/${userId}/todos/${todo.id}`,
+    );
   }
 
-  loadTodos() {
+  // TODO: remove hardcoded userId
+  loadTodos(userId: string = this.defaultUserId) {
     return this.http.get<{ todos: { id: string; description: string }[] }>(
-      `${environment.apiUrl}/todo`,
+      `${environment.apiUrl}/v1/users/${userId}/todos`,
     );
   }
 }

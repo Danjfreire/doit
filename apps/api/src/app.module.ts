@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TodoModule } from './todo/todo.module';
-import typeorm from './config/typeorm';
+import { TodoModule } from './todos/todo.module';
+import { UsersModule } from './users/users.module';
+import typeorm from './_shared/config/typeorm';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import typeorm from './config/typeorm';
       useFactory: (cfg: ConfigService) => cfg.get('typeorm'),
     }),
     TodoModule,
+    UsersModule,
   ],
 })
 export class AppModule {}

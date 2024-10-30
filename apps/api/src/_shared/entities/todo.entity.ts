@@ -1,4 +1,5 @@
-import { Column, PrimaryGeneratedColumn, Entity } from 'typeorm';
+import { Column, PrimaryGeneratedColumn, Entity, ManyToOne } from 'typeorm';
+import { User } from './user.entity';
 
 const VALID_TODO_STATUSES = ['pending', 'in_progress', 'done'] as const;
 export type TodoStatus = (typeof VALID_TODO_STATUSES)[number];
@@ -17,4 +18,11 @@ export class Todo {
     default: 'pending',
   })
   status: TodoStatus;
+
+  @ManyToOne(() => User)
+  user: User;
+
+  // this is just the id of the relationship, it should be filled automagically
+  @Column({ nullable: false })
+  userId: string;
 }

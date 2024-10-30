@@ -10,21 +10,25 @@ import {
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './create-todo.dto';
-import { Todo } from './todo.entity';
+import { Todo } from '../_shared/entities/todo.entity';
 
-@Controller('todo')
+@Controller('/v1/users/:uid/todos')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Get()
-  async listTodos(): Promise<{ todos: Todo[] }> {
-    const todos = await this.todoService.list();
+  async listTodos(@Param('uid') userId: string): Promise<{ todos: Todo[] }> {
+    const todos = await this.todoService.list(userId);
+
     return { todos };
   }
 
   @Post()
-  async createTodo(@Body() body: CreateTodoDto): Promise<Todo> {
-    return await this.todoService.createTodo(body);
+  async createTodo(
+    @Param('uid') userId: string,
+    @Body() body: CreateTodoDto,
+  ): Promise<Todo> {
+    return await this.todoService.createTodo(userId, body);
   }
 
   @Put('/:id')
