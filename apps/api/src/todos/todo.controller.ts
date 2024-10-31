@@ -9,8 +9,8 @@ import {
   Put,
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
-import { CreateTodoDto } from './create-todo.dto';
 import { Todo } from '../_shared/entities/todo.entity';
+import { CreateTodoDto } from '@repo/types/todo';
 
 @Controller('/v1/users/:uid/todos')
 export class TodoController {

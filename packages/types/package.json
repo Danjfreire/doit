@@ -1,0 +1,24 @@
+{
+  "name": "@repo/types",
+  "version": "1.0.0",
+  "description": "Shared types that are used in this monorepo",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "exports": {
+    "./todo": {
+      "types": "./src/todo.ts",
+      "default": "./dist/todo.js"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@repo/typescript-config": "*"
+  },
+  "dependencies": {
+    "class-validator": "^0.14.1"
+  }
+}
