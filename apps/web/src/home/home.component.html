@@ -1,7 +1,9 @@
 <div class="flex items-center justify-center p-8">
   <!-- Board container -->
   <!-- TODO: add some logic to either show the todo list or the todo being done -->
-  @if (todos) {
-    <app-todo-list [todos]="todos"></app-todo-list>
+  @if (currentTodo != undefined) {
+    <app-current-todo [todo]="currentTodo"></app-current-todo>
+  } @else {
+    <app-todo-list [todos]="pendingTodos"></app-todo-list>
   }
 </div>

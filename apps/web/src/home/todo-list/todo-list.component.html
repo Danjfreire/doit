@@ -28,12 +28,13 @@
       ></div>
       <!-- Todo actions -->
       <div class="flex w-[50px] items-center">
-        <!-- <lucide-angular
-            class="mr-2"
-            [img]="PlayIcon"
-            size="18"
-            color="green"
-          ></lucide-angular> -->
+        <lucide-angular
+          class="mr-2"
+          [img]="PlayIcon"
+          size="18"
+          color="green"
+          (click)="pickTodo(item)"
+        ></lucide-angular>
         <lucide-angular
           [img]="TrashIcon"
           size="18"

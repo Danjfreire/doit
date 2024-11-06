@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { Todo } from '../_shared/entities/todo.entity';
-import { CreateTodoDto } from '@repo/types/todo';
+import { CreateTodoDto, UpdateTodoDto } from '@repo/types/todo';
 
 @Controller('/v1/users/:uid/todos')
 export class TodoController {
@@ -34,7 +34,7 @@ export class TodoController {
   @Put('/:id')
   async updateTodo(
     @Param('id') id: string,
-    @Body() body: CreateTodoDto,
+    @Body() body: UpdateTodoDto,
   ): Promise<Todo> {
     const res = await this.todoService.updateTodo(id, body);
 

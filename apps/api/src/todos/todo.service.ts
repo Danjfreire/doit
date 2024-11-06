@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Todo } from '../_shared/entities/todo.entity';
 import { CreateTodoDto } from './create-todo.dto';
 import { User } from 'src/_shared/entities/user.entity';
+import { UpdateTodoDto } from '@repo/types/todo';
 
 @Injectable()
 export class TodoService {
@@ -30,13 +31,14 @@ export class TodoService {
     return res;
   }
 
-  async updateTodo(id: string, dto: CreateTodoDto): Promise<Todo | null> {
+  async updateTodo(id: string, dto: UpdateTodoDto): Promise<Todo | null> {
     const todo = await this.todoRepository.findOneBy({ id });
     if (todo == null) {
       return null;
     }
 
     todo.description = dto.description;
+    todo.status = dto.status;
     return await this.todoRepository.save(todo);
   }
 

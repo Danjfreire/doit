@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { LucideAngularModule, Play, Trash2 } from 'lucide-angular';
-import { Todo } from '../home.component';
 import { TodoService } from '../shared/todo.service';
+import { TodoDto } from '@repo/types/todo';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,7 +11,7 @@ import { TodoService } from '../shared/todo.service';
   styleUrl: './todo-list.component.css',
 })
 export class TodoListComponent {
-  @Input({ required: true }) todos: Todo[] = [];
+  @Input({ required: true }) todos: TodoDto[] = [];
 
   // Lucide icons
   readonly TrashIcon = Trash2;
@@ -25,9 +25,11 @@ export class TodoListComponent {
     // if the request is successful, update the todo item with the response to get the real id
 
     const randomId = 'temp-' + Math.random().toString(32).substring(7);
-    const newTodo: Todo = {
+    const newTodo: TodoDto = {
       id: randomId,
       description: '',
+      status: 'pending',
+      userId: '',
     };
     this.todos.push(newTodo);
 
@@ -49,16 +51,21 @@ export class TodoListComponent {
     return;
   }
 
-  updateDescription(todo: Todo, event: Event) {
+  updateDescription(todo: TodoDto, event: Event) {
     const element = event.target as HTMLInputElement;
     todo.description = element.innerText;
+  }
+
+  pickTodo(todo: TodoDto) {
+    todo.status = 'in_progress';
+    this.saveTodo(todo);
   }
 
   /**
    * Persist the todo item to the server, whether it's a new item or an existing one
    * @param todo Todo item to save
    */
-  saveTodo(todo: Todo) {
+  saveTodo(todo: TodoDto) {
     console.log('savetodo called');
     if (todo.id.startsWith('temp-')) {
       this.todoService.createTodo(todo).subscribe((res) => {
@@ -75,7 +82,7 @@ export class TodoListComponent {
     }
   }
 
-  deleteTodo(todo: Todo) {
+  deleteTodo(todo: TodoDto) {
     this.todoService.deleteTodo(todo).subscribe(() => {
       this.todos = this.todos.filter((t) => t.id !== todo.id);
       console.log('todo deleted!');

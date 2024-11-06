@@ -1,21 +1,19 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TodoService } from './shared/todo.service';
 import { TodoListComponent } from './todo-list/todo-list.component';
-
-export interface Todo {
-  id: string;
-  description: string;
-}
+import { TodoDto } from '@repo/types/todo';
+import { CurrentTodoComponent } from './current-todo/current-todo.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [TodoListComponent],
+  imports: [TodoListComponent, CurrentTodoComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
-  todos: Todo[] = [];
+  pendingTodos: TodoDto[] = [];
+  currentTodo?: TodoDto;
 
   todoService = inject(TodoService);
 
@@ -25,7 +23,10 @@ export class HomeComponent implements OnInit {
 
   private loadTodos() {
     this.todoService.loadTodos().subscribe((res) => {
-      this.todos = res.todos;
+      this.pendingTodos = res.todos.filter((todo) => todo.status === 'pending');
+      this.currentTodo = res.todos.find(
+        (todo) => todo.status === 'in_progress',
+      );
     });
   }
 }

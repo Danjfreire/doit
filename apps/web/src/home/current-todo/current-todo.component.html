@@ -1,0 +1,35 @@
+<div class="flex flex-col items-center">
+  <h1 class="text-4xl font-bold">Just do it!</h1>
+
+  <div
+    class="m-8 flex min-h-10 w-[500px] rounded-xl border border-r border-slate-300 px-4 py-3 text-lg"
+  >
+    {{ todo.description }}
+  </div>
+
+  <button
+    (click)="showConfirmationDialog()"
+    class="w-[80px] rounded-xl border border-slate-300 p-2 hover:bg-green-400"
+  >
+    I dit it!
+  </button>
+
+  <dialog #confirmDialog class="rounded-xl border border-slate-500 p-8">
+    <h2 class="mb-6 font-bold">Did you REALLY do it?🤨</h2>
+
+    <div class="flex items-center justify-around">
+      <button
+        class="w-[80px] rounded-xl border border-slate-300 p-2 hover:bg-red-400"
+        (click)="closeConfirmationDialog(false)"
+      >
+        No 😔
+      </button>
+      <button
+        class="w-[80px] rounded-xl border border-slate-300 p-2 hover:bg-green-400"
+        (click)="closeConfirmationDialog(true)"
+      >
+        Yes! 😎
+      </button>
+    </div>
+  </dialog>
+</div>
